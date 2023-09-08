@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Details</title>
+    <!-- Add your CSS styles or include external CSS files if needed -->
+</head>
+<body>
+    <div class="container">
+        <h2>Form Details</h2>
+        <ul>
+            <li><strong>Name:</strong> {{ form_data.name }}</li>
+            <li><strong>Date of Birth:</strong> {{ form_data.dob }}</li>
+            <li><strong>Age:</strong> {{ form_data.age }}</li>
+            <li><strong>Gender:</strong> {{ form_data.gender }}</li>
+            <li><strong>Phone Number:</strong> {{ form_data.phone }}</li>
+            <li><strong>Email:</strong> {{ form_data.email }}</li>
+            <li><strong>Address:</strong> {{ form_data.address }}</li>
+            <li><strong>District:</strong> {{ form_data.district }}</li>
+            <li><strong>Branch:</strong> {{ form_data.branch }}</li>
+            <li><strong>Account Type:</strong> {{ form_data.account_type }}</li>
+            <li><strong>Materials Provided:</strong> {{ form_data.materials_provided }}</li>
+        </ul>
+        <a href="{% url 'bankapp:homepage' %}" class="btn btn-primary">Return to Home</a>
+    </div>
+
+    <!-- Add any additional HTML or JavaScript as needed -->
+</body>
+</html>

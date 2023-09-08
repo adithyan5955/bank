@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Application</title>
+    <style>
+        .material-checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .material-checkbox input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    label[for="debit-card"] {
+        margin-left: 20px;
+    }
+
+        .material-checkbox {
+        margin-bottom: 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Updated CSS to align labels and input elements horizontally */
+        label {
+            display: inline-block;
+            width: 30%; /* Adjust the width as needed */
+            text-align: right;
+            margin-right: 2%; /* Adjust the margin as needed */
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 65%; /* Adjust the width as needed */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Account Application Form</h2>
+        <form action="{% url 'bankapp:submit_application' %}" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Form Errors:</strong>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <li>{{ field }}: {{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4" required></textarea><br>
+
+            <label for="district">District:</label>
+            <select id="district" name="district" required>
+                <option value="ernakulam">Ernakulam</option>
+                <option value="kollam">Kollam</option>
+                <option value="thiruvanamthapuram">Thiruvanamthapuram</option>
+                <option value="kannur">Kannur</option>
+                <option value="kozhikode">Kozhikode</option>
+                <option value="thrissur">Thrissur</option>
+                <!-- Add other districts here -->
+            </select><br>
+
+            <label for="branch">Branch:</label>
+            <select id="branch" name="branch" required>
+                <!-- Populate branch options based on the selected district using JavaScript -->
+            </select><br>
+
+            <label for="account-type">Account Type:</label>
+            <select id="account-type" name="account_type" required>
+                <option value="savings">Savings Account</option>
+                <option value="current">Current Account</option>
+                <!-- Add other account types here -->
+            </select><br>
+
+            <label>Materials Provided:</label>
+<div class="material-checkbox">
+    <input type="checkbox" id="debit-card" name="materials_provided" value="debit-card">
+    <label for="debit-card">Debit Card</label>
+</div>
+<div class="material-checkbox">
+    <input type="checkbox" id="credit-card" name="materials_provided" value="credit-card">
+    <label for="credit-card">Credit Card</label>
+</div>
+<div class="material-checkbox">
+    <input type="checkbox" id="cheque-book" name="materials_provided" value="cheque-book">
+    <label for="cheque-book">Cheque Book</label>
+</div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{% url 'bankapp:homepage' %}">Return to Home</a>
+    </div>
+
+    <!-- JavaScript to populate branch options based on the selected district -->
+    <script>
+        // JavaScript to handle dependent dropdowns
+document.getElementById('district').addEventListener('change', function () {
+    var district = this.value;
+    var branchDropdown = document.getElementById('branch');
+    
+    // Clear existing options
+    branchDropdown.innerHTML = '';
+
+    if (district === 'kollam') {
+        // Add options for Kollam branches
+        addOption(branchDropdown, 'chinnakkada', 'Chinnakkada');
+        addOption(branchDropdown, 'kottarakkara', 'Kottarakkara');
+    } else if (district === 'ernakulam') {
+        // Add options for Ernakulam branches
+        addOption(branchDropdown, 'marine-drive', 'Marine Drive');
+        addOption(branchDropdown, 'kakkanad', 'Kakkanad');
+    } else if (district === 'thiruvanamthapuram') {
+        // Add options for Thiruvanamthapuram branches
+        addOption(branchDropdown, 'palayam', 'Palayam');
+        addOption(branchDropdown, 'kazhakuttam', 'Kazhakuttam');
+    } else if (district === 'kannur') {
+        // Add options for Kannur branches
+        addOption(branchDropdown, 'thavakkara', 'Thavakkara');
+        addOption(branchDropdown, 'payyambalam', 'Payyambalam');
+    } else if (district === 'kozhikode') {
+        // Add options for Kozhikode branches
+        addOption(branchDropdown, 'beach-road', 'Beach Road');
+        addOption(branchDropdown, 'mavoor-road', 'Mavoor Road');
+    } else if (district === 'thrissur') {
+        // Add options for Thrissur branches
+        addOption(branchDropdown, 'round-north', 'Round North');
+        addOption(branchDropdown, 'round-south', 'Round South');
+    }
+    // Add options for other districts as needed
+
+    // Function to add options to the dropdown
+    function addOption(select, value, text) {
+        var option = document.createElement('option');
+        option.value = value;
+        option.text = text;
+        select.appendChild(option);
+    }
+});
+
+    </script>
+</body>
+</html>

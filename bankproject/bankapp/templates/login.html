@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>Login</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .form-group input {
+            width: 200px; /* Adjust the width as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br>
+        or
+        <br>
+        <a href="{% url 'bankapp:registration' %}" class="btn btn-warning">Register</a>
+    </div>
+</body>
+</html>
